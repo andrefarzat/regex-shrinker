@@ -4,6 +4,7 @@ import { RegexShrinker } from "../src/RegexShrinker";
 @TestFixture('RegexShrinkerTest')
 export class RegexShrinkerTest {
 
+    @TestCase('', '')
     @TestCase('a', 'a')
     @TestCase('aa', 'aa')
     @TestCase('aaa', 'aaa')
