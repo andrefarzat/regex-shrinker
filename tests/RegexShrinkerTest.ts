@@ -9,7 +9,7 @@ export class RegexShrinkerTest {
     @TestCase('aaa', 'aaa')
     @TestCase('aaaa', 'a{4}')
     @TestCase('aaaaa', 'a{5}')
-    @TestCase('aaaaaa', 'a{6}')
+    @TestCase(new RegExp('aaaaaa'), 'a{6}')
     @TestCase('aaaaaaaaaaaaa', 'a{13}')
     @TestCase('aaaaaaaaaaaaab', 'a{13}b')
     @TestCase('aaaaaaaaaaaaa|bbbbbbbbbbbbb', 'a{13}|b{13}')
