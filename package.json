@@ -4,8 +4,9 @@
   "description": "Regular Expression Shrinker",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node tests/runner.ts | tap-dot",
-    "test-ci": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "test": "ts-node tests/runner.ts",
+    "test-ci": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
+    "check-coverage": "nyc --reporter=lcov --reporter=html npm run test && nyc report"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,19 @@
     "tap-dot": "^2.0.0",
     "ts-node": "^8.1.1",
     "typescript": "^3.4.5"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "dist"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
   }
 }
