@@ -4,7 +4,8 @@
   "description": "Regular Expression Shrinker",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node tests/runner.ts"
+    "test": "ts-node tests/runner.ts | tap-dot",
+    "test-ci": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,12 @@
   },
   "homepage": "https://github.com/andrefarzat/regex-shrinker#readme",
   "dependencies": {
-    "regexp-tree": "^0.1.10"
+    "regexp-tree": "0.1.10"
   },
   "devDependencies": {
     "alsatian": "^2.4.0",
+    "coveralls": "^3.0.3",
+    "nyc": "^14.1.1",
     "tap-bark": "^1.0.0",
     "tap-dot": "^2.0.0",
     "ts-node": "^8.1.1",
