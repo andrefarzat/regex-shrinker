@@ -27,29 +27,23 @@ export class RegexShrinker {
     }
 
     private shrinkAlternative(node: regexTypes.Alternative): string {
-        const len = node.expressions.length;
         const nodes = node.expressions.map(expr => this.shrinkNode(expr));
-        const versions: string[] = [nodes.join('')];
+        const word = nodes.join('');
+        const versions: string[] = [word];
 
-        let currentIndex = 0;
-        let current = nodes[currentIndex];
-        let version: string[] = [current];
-        let j = 0;
-        for (let i = 0; i < len; i++) {
-            let next = nodes[i+1];
-            if (current === next) {
-                version[j] += '' + next;
-            } else {
-                currentIndex = i;
-                if (next !== undefined) {
-                    j = version.push(next) - 1;
-                }
-                current = next;
+        for (let currentIndex = 0; currentIndex < nodes.length; currentIndex ++) {
+            for (let len = 1; len < nodes.length; len ++) {
+                let current = word.substring(currentIndex, len);
+                let regex = new RegExp(`(${current})\\1+`);
+    
+                let version = word.replace(regex, (a, b, c) => {
+                    const length = a.split(b).length - 1;
+                    return (length <= 0) ? a : `${b}{${length}}`;
+                });
+    
+                if (!versions.includes(version)) versions.unshift(version);
             }
         }
-
-        const v = version.map(letters => letters && letters.length > 2 ? `${letters[0]}{${letters.length}}` : letters).join('');
-        versions.unshift(v);
 
         return versions.sort((a, b) => a.length - b.length)[0];
     }
