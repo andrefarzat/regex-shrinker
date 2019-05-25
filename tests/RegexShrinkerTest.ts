@@ -7,12 +7,14 @@ export class RegexShrinkerTest {
     @TestCase('a', 'a')
     @TestCase('aa', 'aa')
     @TestCase('aaa', 'aaa')
-    @TestCase('aaaa', 'aaaa')
+    @TestCase('aaaa', 'a{4}')
     @TestCase('aaaaa', 'a{5}')
     @TestCase('aaaaaa', 'a{6}')
     @TestCase('aaaaaaaaaaaaa', 'a{13}')
     @TestCase('aaaaaaaaaaaaab', 'a{13}b')
     @TestCase('aaaaaaaaaaaaa|bbbbbbbbbbbbb', 'a{13}|b{13}')
+    @TestCase('bcccccccbb', 'bc{7}bb')
+    // @TestCase('zza{5}a{5}hh', 'zza{10}hh')
     @Test('Shrink with alternative operator single char')
     public shrinkAlternatives(initialRegex: string, finalRegex: string) {
         const shrinker = new RegexShrinker();

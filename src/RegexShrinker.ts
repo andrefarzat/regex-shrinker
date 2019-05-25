@@ -31,19 +31,25 @@ export class RegexShrinker {
         const nodes = node.expressions.map(expr => this.shrinkNode(expr));
         const versions: string[] = [nodes.join('')];
 
-        let current = nodes[0];
-        let version = current;
+        let currentIndex = 0;
+        let current = nodes[currentIndex];
+        let version: string[] = [current];
+        let j = 0;
         for (let i = 0; i < len; i++) {
             let next = nodes[i+1];
-            if (current === next && next !== undefined) {
-                version += '' + next;
+            if (current === next) {
+                version[j] += '' + next;
             } else {
-                if (version.length >= 4) {
-                    versions.push(`${current}{${version.length}}${nodes.slice(version.length).join('')}`);
+                currentIndex = i;
+                if (next !== undefined) {
+                    j = version.push(next) - 1;
                 }
-                current = next;   
+                current = next;
             }
         }
+
+        const v = version.map(letters => letters && letters.length > 2 ? `${letters[0]}{${letters.length}}` : letters).join('');
+        versions.unshift(v);
 
         return versions.sort((a, b) => a.length - b.length)[0];
     }
