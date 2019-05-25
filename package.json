@@ -1,0 +1,29 @@
+{
+  "name": "regex-shrinker",
+  "version": "1.0.0",
+  "description": "Regular Expression Shrinker",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node tests/runner.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrefarzat/regex-shrinker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrefarzat/regex-shrinker/issues"
+  },
+  "homepage": "https://github.com/andrefarzat/regex-shrinker#readme",
+  "dependencies": {
+    "regexp-tree": "^0.1.10"
+  },
+  "devDependencies": {
+    "alsatian": "^2.4.0",
+    "tap-bark": "^1.0.0",
+    "tap-dot": "^2.0.0",
+    "ts-node": "^8.1.1",
+    "typescript": "^3.4.5"
+  }
+}
